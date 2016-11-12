@@ -1,7 +1,7 @@
 /**
  * Created by Test on 10/30/2016.
  */
-public class AtmCommandFactory{
+public class AtmCommandFactory {
 
     private final MoneyStorage moneyStorage;
 
@@ -11,7 +11,7 @@ public class AtmCommandFactory{
 
     AtmCommand create(String action) throws AtmStateException {
         switch (action) {
-            case "?" :
+            case "?":
                 return new RequestRemainings(moneyStorage);
             case "+":
                 return new DepositCommand(moneyStorage);

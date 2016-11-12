@@ -37,8 +37,6 @@ public class BankNote implements Comparable<BankNote> {
         return value;
     }
 
-    //public void setCurrency(Currency sc) {currency = sc;}
-    //public void setValue(int sv){value = sv;}
     public int compareTo(BankNote testBankNote) {
         if (currency.equals(testBankNote.getCurrency())) {
             if (value > testBankNote.getValue()) {
