@@ -11,6 +11,7 @@ public class WithdrawalCommand implements AtmCommand {
     public WithdrawalCommand(MoneyStorage moneyStorage) {
         this.moneyStorage = moneyStorage;
     }
+
     private Map<BankNote, Integer> outMap = new TreeMap<>();
 
     @Override
@@ -47,6 +48,7 @@ public class WithdrawalCommand implements AtmCommand {
                     }
                 }
             }
+
             //Withdrawal operation
             if (checkAmount == 0) {
                 for (int valueToPoll : valuesArray) {
@@ -66,7 +68,6 @@ public class WithdrawalCommand implements AtmCommand {
         } else {
             throw new AtmStateException();
         }
-
     }
 }
 

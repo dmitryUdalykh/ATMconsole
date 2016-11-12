@@ -1,11 +1,14 @@
 /**
  * Created by Test on 10/30/2016.
  */
+
 import java.lang.Comparable;
-public class BankNote implements Comparable<BankNote>{
+
+public class BankNote implements Comparable<BankNote> {
     private Currency currency;
     private int value;
-    BankNote(Currency thisCurrency,int thisValue){
+
+    BankNote(Currency thisCurrency, int thisValue) {
         this.currency = thisCurrency;
         this.value = thisValue;
     }
@@ -26,25 +29,31 @@ public class BankNote implements Comparable<BankNote>{
         return result;
     }
 
-    public Currency getCurrency() {return currency;}
-    public int getValue(){return value;}
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
     //public void setCurrency(Currency sc) {currency = sc;}
     //public void setValue(int sv){value = sv;}
-    public int compareTo(BankNote testBankNote){
-        if (currency.equals(testBankNote.getCurrency())){
-            if (value > testBankNote.getValue()){
+    public int compareTo(BankNote testBankNote) {
+        if (currency.equals(testBankNote.getCurrency())) {
+            if (value > testBankNote.getValue()) {
                 return 1;
-            }else if(value < testBankNote.getValue()){
+            } else if (value < testBankNote.getValue()) {
                 return -1;
-            }else{
+            } else {
                 return 0;
             }
-        }else{
+        } else {
             return currency.compareTo(testBankNote.getCurrency());
         }
     }
 
-    public String toString(){
-        return currency+" "+value;
+    public String toString() {
+        return currency + " " + value;
     }
 }

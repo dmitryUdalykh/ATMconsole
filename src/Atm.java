@@ -20,7 +20,7 @@ public class Atm {
             AtmCommand atmCommand = atmCommandFactory.create(command);
             return atmCommand.execute(arguments);
         } catch (AtmStateException e) {
-            // TODO: print "ERROR"
+            System.out.println("ERROR");
         }
         return null;
     }
@@ -37,22 +37,18 @@ public class Atm {
             try {
                 String[] lineToRead = atmConsole.readLine().split("\\s");
                 String command = lineToRead[0];
-                //String command = args[0];
-                //File file = new File("fileWrite2.txt");
-                //FileReader fr = new FileReader(file);
-                //BufferedReader br = new BufferedReader(fr);
-                //String data = br.readLine();
+
                 if (command.equalsIgnoreCase("QUIT")) {
                     System.exit(0);
                 }
-                if (lineToRead.length>1) {
+                if (lineToRead.length > 1) {
                     for (Currency z : Currency.values()) {
                         if (!lineToRead[1].equals(z.toString())) {
                             throw new AtmStateException();
                         }
                     }
                 }
-                Object[] arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length); //TODO: get arguments from console/string/file/etc
+                Object[] arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
                 Map<BankNote, Integer> response = atm.runCommand(command, arguments);
 
                 response.entrySet().forEach(entry ->
