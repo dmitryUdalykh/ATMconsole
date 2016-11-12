@@ -11,7 +11,7 @@ import java.util.TreeMap;
 public class AtmTest {
 
     private Atm atm;
-    private Map<BankNote,Integer> ztest = new TreeMap<>();
+    private Map<BankNote, Integer> ztest = new TreeMap<>();
 
     @Before
     public void setUp() {
@@ -71,9 +71,12 @@ public class AtmTest {
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 100), 4);
         Assert.assertEquals(ztest, result);
+
         result = atm.runCommand("+", Currency.CHF, 10, 50);
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 10), 50);
+        Assert.assertEquals(ztest, result);
+        
         result = atm.runCommand("?");
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 10), 50);

@@ -19,12 +19,15 @@ public class WithdrawalCommand implements AtmCommand {
         if (arguments.length != 2) {
             throw new AtmStateException();
         }
-        String output = "";
+
         Currency currencyToPoll = (Currency) arguments[0];
         int amountToGet = (int) arguments[1];
+
+        //Checking whether the money storage contains this currency
         if (!moneyStorage.hasCurrency(currencyToPoll)) {
             throw new AtmStateException();
         }
+
         int currencyAmount = moneyStorage.getCurrencyAmount(currencyToPoll);
         if (currencyAmount >= amountToGet) {
             //Checking whether it is possible to take a certain amount

@@ -43,7 +43,7 @@ public class Atm {
                 }
                 if (lineToRead.length > 1) {
                     for (Currency z : Currency.values()) {
-                        if (!lineToRead[1].equals(z.toString())) {
+                        if (!lineToRead[1].equals(z)) {
                             throw new AtmStateException();
                         }
                     }
