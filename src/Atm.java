@@ -5,13 +5,12 @@
 import java.io.Console;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class Atm {
     private AtmCommandFactory atmCommandFactory;
     private MoneyStorage moneyStorage;
 
-    public Atm() {
+    Atm() {
         moneyStorage = new MoneyStorage();
         atmCommandFactory = new AtmCommandFactory(moneyStorage);
     }

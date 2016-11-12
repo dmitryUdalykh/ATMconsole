@@ -10,7 +10,7 @@ import java.util.TreeMap;
 public class AtmTest {
 
     private Atm atm;
-    public Map ztest = new TreeMap();
+    private Map ztest = new TreeMap();
 
     @Before
     public void setUp() {
