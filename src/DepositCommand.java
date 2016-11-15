@@ -12,6 +12,7 @@ public class DepositCommand implements AtmCommand {
         this.moneyStorage = moneyStorage;
     }
 
+    //TODO: is not used
     private Integer addNum;
 
     @Override
@@ -19,6 +20,9 @@ public class DepositCommand implements AtmCommand {
         if (arguments.length != 3) {
             throw new AtmStateException();
         }
+
+        // TODO: I think it's going to fail when we run the ATM from console - the arguments are String and casting to Currency or "int" will throw
+        // an exception
         Currency theCurrency = (Currency) arguments[0];
         int noteValue = (int) arguments[1];
         int addNum = (int) arguments[2];
@@ -28,6 +32,8 @@ public class DepositCommand implements AtmCommand {
             moneyStorage.addNotes(theCurrency, noteValue, addNum);
             inMap.put(new BankNote(theCurrency, noteValue), addNum);
         } else {
+            //TODO: let's add some message explaining the problem to look like
+            // throw new AtmStateException("explanation of the issue");
             throw new AtmStateException();
         }
         return inMap;

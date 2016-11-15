@@ -15,22 +15,28 @@ public class Atm {
         atmCommandFactory = new AtmCommandFactory(moneyStorage);
     }
 
+    //TODO: doesn't have to be public
     public Map<BankNote, Integer> runCommand(String command, Object... arguments) {
         try {
             AtmCommand atmCommand = atmCommandFactory.create(command);
             return atmCommand.execute(arguments);
+
+            // TODO: an exception doesn't have to be caught here; it should be thrown from the method; let's remove "catch" and add
+            // "throws AtmStateException" to the method signature
         } catch (AtmStateException e) {
             System.out.println("ERROR");
         }
         return null;
     }
 
+    //TODO: doesn't have to be public
     public MoneyStorage getMoneyStorage() {
         return moneyStorage;
     }
 
     public static void main(String[] args) {
         Console atmConsole = System.console();
+
         Atm atm = new Atm();
         while (true) {
             // pass parameters from console to ATM
@@ -41,6 +47,9 @@ public class Atm {
                 if (command.equalsIgnoreCase("QUIT")) {
                     System.exit(0);
                 }
+
+                // TODO: this validation should be in the commands because if we leave it here we need to duplicate this validation in
+                // other places - if, for example, we read data not from the console but from a file
                 if (lineToRead.length > 1) {
                     for (Currency z : Currency.values()) {
                         if (!lineToRead[1].equals(z.toString())) {
@@ -55,7 +64,7 @@ public class Atm {
                         System.out.println(entry + " " + entry.getValue())
                 );
                 System.out.println("OK");
-            } catch (Exception e) {
+            } catch (Exception e) {     // TODO: should be AtmStateException
                 System.out.print("ERROR");
             }
         }
