@@ -12,29 +12,22 @@ public class DepositCommand implements AtmCommand {
         this.moneyStorage = moneyStorage;
     }
 
-    //TODO: is not used
-    private Integer addNum;
-
     @Override
-    public Map<BankNote, Integer> execute(Object... arguments) throws AtmStateException {
+    public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
         if (arguments.length != 3) {
-            throw new AtmStateException();
+            throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
 
-        // TODO: I think it's going to fail when we run the ATM from console - the arguments are String and casting to Currency or "int" will throw
-        // an exception
-        Currency theCurrency = (Currency) arguments[0];
-        int noteValue = (int) arguments[1];
-        int addNum = (int) arguments[2];
+        Currency theCurrency = Currency.valueOf(arguments[0]);
+        int noteValue = Integer.parseInt(arguments[1]);
+        int addNum = Integer.parseInt(arguments[2]);
         double noteCheckOne = Math.log10(noteValue);
         double noteCheckTwo = Math.log10(noteValue / 5.0);
         if (noteCheckOne == (int) noteCheckOne || noteCheckTwo == (int) noteCheckTwo) {
             moneyStorage.addNotes(theCurrency, noteValue, addNum);
             inMap.put(new BankNote(theCurrency, noteValue), addNum);
         } else {
-            //TODO: let's add some message explaining the problem to look like
-            // throw new AtmStateException("explanation of the issue");
-            throw new AtmStateException();
+            throw new AtmStateException("ILLEGAL VALUE OF A BANKNOTE");
         }
         return inMap;
     }
