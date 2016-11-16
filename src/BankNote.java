@@ -33,15 +33,15 @@ public class BankNote implements Comparable<BankNote> {
         return currency;
     }
 
-    public int getValue() {
+    public int valueGetter() {
         return value;
     }
 
     public int compareTo(BankNote testBankNote) {
         if (currency.equals(testBankNote.getCurrency())) {
-            if (value > testBankNote.getValue()) {
+            if (value > testBankNote.valueGetter()) {
                 return 1;
-            } else if (value < testBankNote.getValue()) {
+            } else if (value < testBankNote.valueGetter()) {
                 return -1;
             } else {
                 return 0;
