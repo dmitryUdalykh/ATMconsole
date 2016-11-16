@@ -4,7 +4,7 @@
 public enum CommandType {
     REMAININGS("?"),
     ADD("+"),
-    WITHDRAW("+"),
+    WITHDRAW("-"),
     EXIT("EXIT"),
     UNDEFINED("");
 
@@ -14,10 +14,10 @@ public enum CommandType {
         this.command = command;
     }
 
-    public static CommandType getCommandType(String command) throws AtmStateException{
+    public static CommandType getCommandType(String command) throws AtmStateException {
         CommandType[] CTlavues = CommandType.values();
         for (CommandType CTcheck : CTlavues) {
-            if (CTcheck.command.equals(command)){
+            if (CTcheck.command.equals(command)) {
                 return CTcheck;
             }
         }

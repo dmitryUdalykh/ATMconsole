@@ -15,13 +15,10 @@ public class Atm {
         atmCommandFactory = new AtmCommandFactory(moneyStorage);
     }
 
-    //TODO: doesn't have to be public
     Map<BankNote, Integer> runCommand(String command, String... arguments) throws AtmStateException {
         AtmCommand atmCommand = atmCommandFactory.create(command);
         return atmCommand.execute(arguments);
 
-        // TODO: an exception doesn't have to be caught here; it should be thrown from the method; let's remove "catch" and add
-        // "throws AtmStateException" to the method signature
     }
 
     MoneyStorage getMoneyStorage() {
@@ -49,7 +46,7 @@ public class Atm {
                         System.out.println(entry + " " + entry.getValue())
                 );
                 System.out.println("OK");
-            } catch (AtmStateException e) {     // TODO: should be AtmStateException
+            } catch (AtmStateException e) {
                 System.out.print("ERROR");
             }
         }
