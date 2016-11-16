@@ -5,6 +5,7 @@ public enum CommandType {
     REMAININGS("?"),
     ADD("+"),
     WITHDRAW("+"),
+    EXIT("EXIT"),
     UNDEFINED("");
 
     private final String command;
@@ -20,6 +21,6 @@ public enum CommandType {
                 return CTcheck;
             }
         }
-        throw new AtmStateException("ILLEGAL ACTION");
+        return CommandType.UNDEFINED;
     }
 }

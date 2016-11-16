@@ -39,10 +39,10 @@ public class AtmCommandFactory {
                 return new DepositCommand(moneyStorage);
             case WITHDRAW:
                 return new WithdrawalCommand(moneyStorage);
-            case UNDEFINED:
-                throw new AtmStateException("AN EMPTY REQUEST");
+            case EXIT:
+                System.exit(0);
             default:
-                throw new IllegalArgumentException("Can not find command for action " + action);
+                throw new IllegalArgumentException("CAN NOT FIND A COMMAND FOR THIS ACTION " + action);
 
         }
     }

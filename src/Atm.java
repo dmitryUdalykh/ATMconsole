@@ -44,13 +44,7 @@ public class Atm {
 
                 // TODO: this validation should be in the commands because if we leave it here we need to duplicate this validation in
                 // other places - if, for example, we read data not from the console but from a file
-                if (lineToRead.length > 1) {
-                    for (Currency z : Currency.values()) {
-                        if (!lineToRead[1].equals(z.toString())) {
-                            throw new AtmStateException("ILLEGAL CURRENCY TYPE");
-                        }
-                    }
-                }
+
                 String[] arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
                 Map<BankNote, Integer> response = atm.runCommand(command, arguments);
 
