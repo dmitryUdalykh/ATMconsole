@@ -15,8 +15,7 @@ public enum CommandType {
     }
 
     public static CommandType getCommandType(String command) throws AtmStateException {
-        CommandType[] CTlavues = CommandType.values();
-        for (CommandType CTcheck : CTlavues) {
+        for (CommandType CTcheck : CommandType.values()) {
             if (CTcheck.command.equals(command)) {
                 return CTcheck;
             }
