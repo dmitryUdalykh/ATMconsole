@@ -16,21 +16,15 @@ public class Atm {
     }
 
     //TODO: doesn't have to be public
-    public Map<BankNote, Integer> runCommand(String command, Object... arguments) {
-        try {
-            AtmCommand atmCommand = atmCommandFactory.create(command);
-            return atmCommand.execute(arguments);
+    Map<BankNote, Integer> runCommand(String command, String... arguments) throws AtmStateException {
+        AtmCommand atmCommand = atmCommandFactory.create(command);
+        return atmCommand.execute(arguments);
 
-            // TODO: an exception doesn't have to be caught here; it should be thrown from the method; let's remove "catch" and add
-            // "throws AtmStateException" to the method signature
-        } catch (AtmStateException e) {
-            System.out.println("ERROR");
-        }
-        return null;
+        // TODO: an exception doesn't have to be caught here; it should be thrown from the method; let's remove "catch" and add
+        // "throws AtmStateException" to the method signature
     }
 
-    //TODO: doesn't have to be public
-    public MoneyStorage getMoneyStorage() {
+    MoneyStorage getMoneyStorage() {
         return moneyStorage;
     }
 
@@ -53,18 +47,18 @@ public class Atm {
                 if (lineToRead.length > 1) {
                     for (Currency z : Currency.values()) {
                         if (!lineToRead[1].equals(z.toString())) {
-                            throw new AtmStateException();
+                            throw new AtmStateException("ILLEGAL CURRENCY TYPE");
                         }
                     }
                 }
-                Object[] arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
+                String[] arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
                 Map<BankNote, Integer> response = atm.runCommand(command, arguments);
 
                 response.entrySet().forEach(entry ->
                         System.out.println(entry + " " + entry.getValue())
                 );
                 System.out.println("OK");
-            } catch (Exception e) {     // TODO: should be AtmStateException
+            } catch (AtmStateException e) {     // TODO: should be AtmStateException
                 System.out.print("ERROR");
             }
         }
