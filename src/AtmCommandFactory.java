@@ -32,13 +32,15 @@ public class AtmCommandFactory {
          */
         // TODO have a switch like:
         // switch (CommandType.getCommandType(action))
-        switch (action) {
-            case "?":
+        switch (CommandType.getCommandType(action)) {
+            case REMAININGS:
                 return new RequestRemainings(moneyStorage);
-            case "+":
+            case ADD:
                 return new DepositCommand(moneyStorage);
-            case "-":
+            case WITHDRAW:
                 return new WithdrawalCommand(moneyStorage);
+            case UNDEFINED:
+                throw new AtmStateException("AN EMPTY REQUEST");
             default:
                 throw new IllegalArgumentException("Can not find command for action " + action);
 
