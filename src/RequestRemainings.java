@@ -12,7 +12,7 @@ public class RequestRemainings implements AtmCommand {
     }
 
     @Override
-    public Map<BankNote, Integer> execute(Object... arguments) {
+    public Map<BankNote, Integer> execute(String... arguments) {
         return moneyStorage.getBanknotes();
     }
 }
