@@ -6,9 +6,9 @@ import java.util.*;
 
 public class ValueComparator implements Comparator<BankNote> {
     public int compare(BankNote alpha, BankNote beta) {
-        if (alpha.getValue() > beta.getValue()) {
+        if (alpha.valueGetter() > beta.valueGetter()) {
             return 1;
-        } else if (alpha.getValue() < beta.getValue()) {
+        } else if (alpha.valueGetter() < beta.valueGetter()) {
             return -1;
         } else {
             return 0;
