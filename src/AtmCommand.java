@@ -5,6 +5,5 @@ import java.util.Map;
  */
 public interface AtmCommand {
 
-    // TODO: I think we should accept an array of Strings and not just objects
-    Map<BankNote, Integer> execute(Object... arguments) throws AtmStateException;
+    Map<BankNote, Integer> execute(String... arguments) throws AtmStateException;
 }
