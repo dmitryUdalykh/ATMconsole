@@ -15,17 +15,17 @@ public class WithdrawalCommand implements AtmCommand {
     private Map<BankNote, Integer> outMap = new TreeMap<>();
 
     @Override
-    public Map<BankNote, Integer> execute(Object... arguments) throws AtmStateException {
+    public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
         if (arguments.length != 2) {
-            throw new AtmStateException();
+            throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
 
-        Currency currencyToPoll = (Currency) arguments[0];
-        int amountToGet = (int) arguments[1];
+        Currency currencyToPoll = Currency.valueOf(arguments[0]);
+        int amountToGet = Integer.parseInt(arguments[1]);
 
         //Checking whether the money storage contains this currency
         if (!moneyStorage.hasCurrency(currencyToPoll)) {
-            throw new AtmStateException();
+            throw new AtmStateException("NO SUCH CURRENCY");
         }
 
         int currencyAmount = moneyStorage.getCurrencyAmount(currencyToPoll);
@@ -66,10 +66,10 @@ public class WithdrawalCommand implements AtmCommand {
                 }
                 return outMap;
             } else {
-                throw new AtmStateException();
+                throw new AtmStateException("NOT POSSIBLE WITH THE AVAILABLE BANKNOTES");
             }
         } else {
-            throw new AtmStateException();
+            throw new AtmStateException("NOT POSSIBLE WITH THE AVAILABLE BANKNOTES");
         }
     }
 }
