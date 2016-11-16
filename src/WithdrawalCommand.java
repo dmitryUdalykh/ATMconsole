@@ -20,6 +20,12 @@ public class WithdrawalCommand implements AtmCommand {
             throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
 
+        for (Currency z : Currency.values()) {
+            if (!arguments[1].equals(z.toString())) {
+                throw new AtmStateException("ILLEGAL CURRENCY TYPE");
+            }
+        }
+
         Currency currencyToPoll = Currency.valueOf(arguments[0]);
         int amountToGet = Integer.parseInt(arguments[1]);
 

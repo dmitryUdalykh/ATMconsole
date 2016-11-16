@@ -18,6 +18,12 @@ public class DepositCommand implements AtmCommand {
             throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
 
+        for (Currency z : Currency.values()) {
+            if (!arguments[1].equals(z.toString())) {
+                throw new AtmStateException("ILLEGAL CURRENCY TYPE");
+            }
+        }
+
         Currency theCurrency = Currency.valueOf(arguments[0]);
         int noteValue = Integer.parseInt(arguments[1]);
         int addNum = Integer.parseInt(arguments[2]);

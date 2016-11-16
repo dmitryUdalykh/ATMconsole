@@ -42,9 +42,6 @@ public class Atm {
                     System.exit(0);
                 }
 
-                // TODO: this validation should be in the commands because if we leave it here we need to duplicate this validation in
-                // other places - if, for example, we read data not from the console but from a file
-
                 String[] arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
                 Map<BankNote, Integer> response = atm.runCommand(command, arguments);
 
