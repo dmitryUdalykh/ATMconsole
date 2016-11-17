@@ -19,24 +19,24 @@ public class AtmTest {
     }
 
     @Test
-    public void sampleSession() {
+    public void sampleSession() throws AtmStateException {
 
         Map<BankNote, Integer> result = atm.runCommand("?");
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("+", Currency.USD, 100, 30);
+        result = atm.runCommand("+", "USD", "100", "30");
         ztest.put(new BankNote(Currency.USD, 100), 30);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("+", Currency.RUR, 250, 10);
+        result = atm.runCommand("+", "RUR", "250", "10");
         Assert.assertEquals(null, result);
 
-        result = atm.runCommand("+", Currency.CHF, 100, 5);
+        result = atm.runCommand("+", "CHF", "100", "5");
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 100), 5);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("+", Currency.USD, 10, 50);
+        result = atm.runCommand("+", "USD", "10", "50");
         ztest.clear();
         ztest.put(new BankNote(Currency.USD, 10), 50);
         Assert.assertEquals(ztest, result);
@@ -48,16 +48,16 @@ public class AtmTest {
         ztest.put(new BankNote(Currency.USD, 100), 30);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("-", Currency.USD, 120);
+        result = atm.runCommand("-", "USD", "120");
         ztest.clear();
         ztest.put(new BankNote(Currency.USD, 100), 1);
         ztest.put(new BankNote(Currency.USD, 10), 2);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("-", Currency.RUR, 500);
+        result = atm.runCommand("-", "RUR", "500");
         Assert.assertEquals(null, result);
 
-        result = atm.runCommand("-", Currency.CHF, 250);
+        result = atm.runCommand("-", "CHF", "250");
         Assert.assertEquals(null, result);
 
         result = atm.runCommand("?");
@@ -67,12 +67,15 @@ public class AtmTest {
         ztest.put(new BankNote(Currency.USD, 100), 29);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("-", Currency.CHF, 400);
+        result = atm.runCommand("+", "eur", "100", "5");
+        Assert.assertEquals(null, result);
+
+        result = atm.runCommand("-", "CHF", "400");
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 100), 4);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("+", Currency.CHF, 10, 50);
+        result = atm.runCommand("+", "CHF", "10", "50");
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 10), 50);
         Assert.assertEquals(ztest, result);
@@ -84,6 +87,7 @@ public class AtmTest {
         ztest.put(new BankNote(Currency.USD, 10), 48);
         ztest.put(new BankNote(Currency.USD, 100), 29);
         Assert.assertEquals(ztest, result);
+
     }
 
     @Test

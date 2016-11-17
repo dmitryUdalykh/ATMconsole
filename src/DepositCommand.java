@@ -14,14 +14,19 @@ public class DepositCommand implements AtmCommand {
 
     @Override
     public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
+
         if (arguments.length != 3) {
             throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
 
+        boolean CurrencyCheck = false;
         for (Currency z : Currency.values()) {
-            if (!arguments[1].equals(z.toString())) {
-                throw new AtmStateException("ILLEGAL CURRENCY TYPE");
+            if (arguments[0].equals(z.toString())) {
+                CurrencyCheck = true;
             }
+        }
+        if (!CurrencyCheck) {
+            throw new AtmStateException("ILLEGAL CURRENCY TYPE");
         }
 
         Currency theCurrency = Currency.valueOf(arguments[0]);

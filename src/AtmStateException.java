@@ -5,6 +5,6 @@ public class AtmStateException extends Exception {
     String CauseOfAnError;
 
     public AtmStateException(String COAE) {
-        System.out.print(COAE);
+        System.out.println(COAE);
     }
 }
