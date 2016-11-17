@@ -79,7 +79,7 @@ public class AtmTest {
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 10), 50);
         Assert.assertEquals(ztest, result);
-        
+
         result = atm.runCommand("?");
         ztest.clear();
         ztest.put(new BankNote(Currency.CHF, 10), 50);

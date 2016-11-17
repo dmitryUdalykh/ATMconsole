@@ -16,12 +16,9 @@ public class Atm {
     }
 
     Map<BankNote, Integer> runCommand(String command, String... arguments) throws AtmStateException {
-        try {
-            AtmCommand atmCommand = atmCommandFactory.create(command);
-            return atmCommand.execute(arguments);
-        } catch (AtmStateException e) {
-            return null;
-        }
+
+        AtmCommand atmCommand = atmCommandFactory.create(command);
+        return atmCommand.execute(arguments);
     }
 
     MoneyStorage getMoneyStorage() {

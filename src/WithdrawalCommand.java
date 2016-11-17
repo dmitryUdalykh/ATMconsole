@@ -31,7 +31,6 @@ public class WithdrawalCommand implements AtmCommand {
         }
 
 
-
         Currency currencyToPoll = Currency.valueOf(arguments[0]);
         int amountToGet = Integer.parseInt(arguments[1]);
 
