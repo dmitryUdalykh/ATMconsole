@@ -20,6 +20,7 @@ class WithdrawalCommand implements AtmCommand {
         }
 
         String currencyForWithdrawal = arguments[0];
+
         Currency.checkCurrency(currencyForWithdrawal);
 
         Currency currencyToPoll = Currency.valueOf(currencyForWithdrawal);
