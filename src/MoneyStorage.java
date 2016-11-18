@@ -3,22 +3,22 @@ import java.util.*;
 /**
  * Created by Test on 10/30/2016.
  */
-public class MoneyStorage {
+class MoneyStorage {
 
     private Comparator<BankNote> bankNoteComparator = new CurrencyComparator().thenComparing(new ValueComparator());
     private Map<BankNote, Integer> notes = new TreeMap<>(bankNoteComparator);
     private Map<Currency, Integer> currencyAmount = new TreeMap<Currency, Integer>();
     private Map<Currency, Integer[][]> currencyValues = new TreeMap<Currency, Integer[][]>();
 
-    public boolean hasNote(Currency hasCurrency, int hasValue) {
+    boolean hasNote(Currency hasCurrency, int hasValue) {
         return notes.containsKey(new BankNote(hasCurrency, hasValue));
     }
 
-    public boolean hasCurrency(Currency hasCurrency2) {
+    boolean hasCurrency(Currency hasCurrency2) {
         return currencyAmount.containsKey(hasCurrency2);
     }
 
-    public void addNotes(Currency addCurrency, int addValue, Integer addNumber) {
+    void addNotes(Currency addCurrency, int addValue, Integer addNumber) {
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
         int[] VTD = valueToDimensions(addNumber);
         Integer[][] valueMatrix = currencyValues.get(addCurrency);
@@ -38,7 +38,7 @@ public class MoneyStorage {
         }
     }
 
-    public void pollNotes(Currency pollCurrency, int pollValue, int pollAmount) {
+    void pollNotes(Currency pollCurrency, int pollValue, int pollAmount) {
         Integer emptyArray2[][] = {{0, 0}, {0, 0}, {0, 0}, {0, 0}};
         BankNote keyToPoll = new BankNote(pollCurrency, pollValue);
         notes.put(keyToPoll, notes.get(keyToPoll) - pollAmount);
@@ -58,17 +58,17 @@ public class MoneyStorage {
         }
     }
 
-    public int getNoteNumber(BankNote keyFour) {
+    int getNoteNumber(BankNote keyFour) {
         Object numberToGet = notes.get(keyFour);
         return (Integer) numberToGet;
     }
 
-    public Integer getCurrencyAmount(Currency NoteKey) {
-        Object amountToGet = currencyAmount.get(NoteKey);
+    Integer getCurrencyAmount(Currency noteKey) {
+        Object amountToGet = currencyAmount.get(noteKey);
         return (Integer) amountToGet;
     }
 
-    public int[] valueToDimensions(int valueToTransform) {
+    int[] valueToDimensions(int valueToTransform) {
         double logarithmic = Math.log10(valueToTransform);
         int[] dims = new int[2];
         if (logarithmic == (int) logarithmic) {
@@ -85,7 +85,7 @@ public class MoneyStorage {
         return matrixOfValues;
     }
 
-    public Map<BankNote, Integer> getBanknotes() {
+    Map<BankNote, Integer> getBanknotes() {
         return notes;
     }
 }
