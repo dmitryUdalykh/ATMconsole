@@ -29,11 +29,11 @@ public class BankNote implements Comparable<BankNote> {
         return result;
     }
 
-    public Currency getCurrency() {
+    Currency getCurrency() {
         return currency;
     }
 
-    public int getBanknoteValue() {
+    int getBanknoteValue() {
         return value;
     }
 
