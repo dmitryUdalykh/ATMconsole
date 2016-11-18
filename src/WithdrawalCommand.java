@@ -4,39 +4,32 @@ import java.util.TreeMap;
 /**
  * Created by Test on 10/30/2016.
  */
-public class WithdrawalCommand implements AtmCommand {
+class WithdrawalCommand implements AtmCommand {
 
-    // TODO: make final
-    private MoneyStorage moneyStorage;
+    private final MoneyStorage moneyStorage;
 
-    public WithdrawalCommand(MoneyStorage moneyStorage) {
+    WithdrawalCommand(MoneyStorage moneyStorage) {
         this.moneyStorage = moneyStorage;
     }
 
-    // TODO: can be a local method variable
-    private Map<BankNote, Integer> outMap = new TreeMap<>();
-
     @Override
     public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
+        Map<BankNote, Integer> outMap = new TreeMap<>();
         if (arguments.length != 2) {
             throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
 
-        // TODO: move validation to "Currency" class
-        boolean CurrencyCheck2 = false;
-        for (Currency z : Currency.values()) {
-            if (arguments[0].equals(z.toString())) {
-                CurrencyCheck2 = true;
-            }
-        }
-        if (!CurrencyCheck2) {
-            throw new AtmStateException("ILLEGAL CURRENCY TYPE");
-        }
+        String currencyForWithdrawal = arguments[0];
+        Currency.checkCurrency(currencyForWithdrawal);
 
+        Currency currencyToPoll = Currency.valueOf(currencyForWithdrawal);
 
-        // TODO: add check that aruments[1] is a valid integer, throw AtmStateException otherwise
-        Currency currencyToPoll = Currency.valueOf(arguments[0]);
-        int amountToGet = Integer.parseInt(arguments[1]);
+        int amountToGet;
+        try {
+            amountToGet = Integer.parseInt(arguments[1]);
+        } catch (NumberFormatException e) {
+            throw new AtmStateException("ILLEGAL TYPING OF AMOUNT");
+        }
 
         //Checking whether the money storage contains this currency
         if (!moneyStorage.hasCurrency(currencyToPoll)) {
