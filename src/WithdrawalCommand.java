@@ -20,9 +20,7 @@ class WithdrawalCommand implements AtmCommand {
         }
 
         String currencyForWithdrawal = arguments[0];
-
         Currency.checkCurrency(currencyForWithdrawal);
-
         Currency currencyToPoll = Currency.valueOf(currencyForWithdrawal);
 
         int amountToGet;
@@ -37,9 +35,9 @@ class WithdrawalCommand implements AtmCommand {
             throw new AtmStateException("NO SUCH CURRENCY");
         }
 
+        //Checking whether it is possible to take a certain amount
         int currencyAmount = moneyStorage.getCurrencyAmount(currencyToPoll);
         if (currencyAmount >= amountToGet) {
-            //Checking whether it is possible to take a certain amount
             int valuesArray[] = {5000, 1000, 500, 100, 50, 10, 5, 1};
             int checkAmount = amountToGet;
             int[][] values2DArray = new int[4][2];
