@@ -4,11 +4,11 @@
 
 import java.util.*;
 
-public class ValueComparator implements Comparator<BankNote> {
+class ValueComparator implements Comparator<BankNote> {
     public int compare(BankNote alpha, BankNote beta) {
-        if (alpha.valueGetter() > beta.valueGetter()) {
+        if (alpha.getBanknoteValue() > beta.getBanknoteValue()) {
             return 1;
-        } else if (alpha.valueGetter() < beta.valueGetter()) {
+        } else if (alpha.getBanknoteValue() < beta.getBanknoteValue()) {
             return -1;
         } else {
             return 0;
