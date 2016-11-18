@@ -35,6 +35,7 @@ public class Atm {
                 String[] lineToRead = atmConsole.readLine().split("\\s");
                 String command = lineToRead[0];
 
+                // TODO: create private static final String constants for "QUITE", "OK", and "ERROR"
                 if (command.equalsIgnoreCase("QUIT")) {
                     System.exit(0);
                 }

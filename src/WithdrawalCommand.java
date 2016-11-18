@@ -6,12 +6,14 @@ import java.util.TreeMap;
  */
 public class WithdrawalCommand implements AtmCommand {
 
+    // TODO: make final
     private MoneyStorage moneyStorage;
 
     public WithdrawalCommand(MoneyStorage moneyStorage) {
         this.moneyStorage = moneyStorage;
     }
 
+    // TODO: can be a local method variable
     private Map<BankNote, Integer> outMap = new TreeMap<>();
 
     @Override
@@ -20,6 +22,7 @@ public class WithdrawalCommand implements AtmCommand {
             throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
 
+        // TODO: move validation to "Currency" class
         boolean CurrencyCheck2 = false;
         for (Currency z : Currency.values()) {
             if (arguments[0].equals(z.toString())) {
@@ -31,6 +34,7 @@ public class WithdrawalCommand implements AtmCommand {
         }
 
 
+        // TODO: add check that aruments[1] is a valid integer, throw AtmStateException otherwise
         Currency currencyToPoll = Currency.valueOf(arguments[0]);
         int amountToGet = Integer.parseInt(arguments[1]);
 

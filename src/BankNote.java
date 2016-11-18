@@ -5,6 +5,7 @@
 import java.lang.Comparable;
 
 public class BankNote implements Comparable<BankNote> {
+    //TODO: make them final
     private Currency currency;
     private int value;
 
@@ -33,12 +34,16 @@ public class BankNote implements Comparable<BankNote> {
         return currency;
     }
 
+    // TODO: Getters in Java are named "getSomething" so in this case it should be names as "getValue()
     public int valueGetter() {
         return value;
     }
 
+    //TODO: misses @Override annotation
     public int compareTo(BankNote testBankNote) {
         if (currency.equals(testBankNote.getCurrency())) {
+            // TODO: can be replaced with
+            // return Integer.compare(value, testBankNote.value);
             if (value > testBankNote.valueGetter()) {
                 return 1;
             } else if (value < testBankNote.valueGetter()) {

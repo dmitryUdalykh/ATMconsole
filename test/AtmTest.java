@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static org.junit.Assert.fail;
+
 /**
  * Created by Test on 10/30/2016.
  */
@@ -21,6 +23,7 @@ public class AtmTest {
     @Test
     public void sampleSession() throws AtmStateException {
 
+
         Map<BankNote, Integer> result = atm.runCommand("?");
         Assert.assertEquals(ztest, result);
 
@@ -28,8 +31,10 @@ public class AtmTest {
         ztest.put(new BankNote(Currency.USD, 100), 30);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("+", "RUR", "250", "10");
-        Assert.assertEquals(null, result);
+        //TODO: refactor out to a separate test method:
+        // @Test(expected = AtmStateException.class)
+//        result = atm.runCommand("+", "RUR", "250", "10");
+//        Assert.assertEquals(null, result);
 
         result = atm.runCommand("+", "CHF", "100", "5");
         ztest.clear();
@@ -54,11 +59,21 @@ public class AtmTest {
         ztest.put(new BankNote(Currency.USD, 10), 2);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("-", "RUR", "500");
-        Assert.assertEquals(null, result);
+        try {
+            atm.runCommand("-", "RUR", "500");
+            fail();     // should not get here
+        } catch (AtmStateException e) {
+            // expected failure
+            //TODO: assert e.getMessage() should be equal to a specific error
+        }
 
-        result = atm.runCommand("-", "CHF", "250");
-        Assert.assertEquals(null, result);
+
+        try {
+            atm.runCommand("-", "CHF", "250");
+            fail();     // should not get here
+        } catch (AtmStateException e) {
+            //TODO: assert e.getMessage() should be equal to a specific error
+        }
 
         result = atm.runCommand("?");
         ztest.clear();
@@ -67,8 +82,12 @@ public class AtmTest {
         ztest.put(new BankNote(Currency.USD, 100), 29);
         Assert.assertEquals(ztest, result);
 
-        result = atm.runCommand("+", "eur", "100", "5");
-        Assert.assertEquals(null, result);
+        try {
+            atm.runCommand("+", "eur", "100", "5");
+
+        } catch (AtmStateException e) {
+            //TODO: assert e.getMessage() should be equal to a specific error
+        }
 
         result = atm.runCommand("-", "CHF", "400");
         ztest.clear();
@@ -93,6 +112,7 @@ public class AtmTest {
     @Test
     public void testShouldWithdrawChf() {
         atm.getMoneyStorage().getBanknotes().put(new BankNote(Currency.CHF, 100), 4);
+        //TODO: add assertion
     }
 
 }
