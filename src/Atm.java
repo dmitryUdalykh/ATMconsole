@@ -6,7 +6,11 @@ import java.io.Console;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Atm {
+class Atm {
+    private static final String quitWord = "QUIT";
+    private static final String okWord = "OK";
+    private static final String errorWord = "ERROR";
+
     private AtmCommandFactory atmCommandFactory;
     private MoneyStorage moneyStorage;
 
@@ -32,23 +36,25 @@ public class Atm {
         while (true) {
             // pass parameters from console to ATM
             try {
-                String[] lineToRead = atmConsole.readLine().split("\\s");
-                String command = lineToRead[0];
+                String command = "";
+                String[] arguments = null;
+                if (System.console() != null) {
+                    String[] lineToRead = atmConsole.readLine().split("\\s");
+                    command = lineToRead[0];
+                    arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
+                    if (command.equalsIgnoreCase(quitWord)) {
+                        System.exit(0);
+                    }
 
-                // TODO: create private static final String constants for "QUITE", "OK", and "ERROR"
-                if (command.equalsIgnoreCase("QUIT")) {
-                    System.exit(0);
+                    Map<BankNote, Integer> response = atm.runCommand(command, arguments);
+                    response.entrySet().forEach(entry ->
+                            System.out.println(entry + " " + entry.getValue())
+                    );
+                    System.out.println(okWord);
                 }
 
-                String[] arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
-                Map<BankNote, Integer> response = atm.runCommand(command, arguments);
-
-                response.entrySet().forEach(entry ->
-                        System.out.println(entry + " " + entry.getValue())
-                );
-                System.out.println("OK");
             } catch (AtmStateException e) {
-                System.out.print("ERROR");
+                System.out.print(errorWord);
             }
         }
     }
