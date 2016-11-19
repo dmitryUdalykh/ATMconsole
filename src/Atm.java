@@ -36,8 +36,8 @@ class Atm {
         while (true) {
             // pass parameters from console to ATM
             try {
-                String command = "";
-                String[] arguments = null;
+                String command;
+                String[] arguments;
                 if (System.console() != null) {
                     String[] lineToRead = atmConsole.readLine().split("\\s");
                     command = lineToRead[0];
