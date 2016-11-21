@@ -2,7 +2,6 @@
  * Created by Test on 10/30/2016.
  */
 
-import java.io.Console;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
@@ -13,9 +12,9 @@ class Atm {
     private static final String errorWord = "ERROR";
 
     private AtmCommandFactory atmCommandFactory;
-    private MoneyStorage moneyStorage;
 
     Atm() {
+        MoneyStorage moneyStorage;
         moneyStorage = new MoneyStorage();
         atmCommandFactory = new AtmCommandFactory(moneyStorage);
     }
@@ -24,10 +23,6 @@ class Atm {
 
         AtmCommand atmCommand = atmCommandFactory.create(command);
         return atmCommand.execute(arguments);
-    }
-
-    MoneyStorage getMoneyStorage() {
-        return moneyStorage;
     }
 
     public static void main(String[] args) {
