@@ -5,6 +5,7 @@
 import java.io.Console;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Scanner;
 
 class Atm {
     private static final String quitWord = "QUIT";
@@ -30,16 +31,16 @@ class Atm {
     }
 
     public static void main(String[] args) {
-        Console atmConsole = System.console();
-
+        final Scanner scanner = new Scanner(System.in);
         Atm atm = new Atm();
         while (true) {
             // pass parameters from console to ATM
             try {
+                final String input = scanner.nextLine();
                 String command;
                 String[] arguments;
-                if (System.console() != null) {
-                    String[] lineToRead = atmConsole.readLine().split("\\s");
+                if (input != null) {
+                    String[] lineToRead = input.split("\\s");
                     command = lineToRead[0];
                     arguments = Arrays.copyOfRange(lineToRead, 1, lineToRead.length);
                     if (command.equalsIgnoreCase(quitWord)) {
@@ -52,7 +53,6 @@ class Atm {
                     );
                     System.out.println(okWord);
                 }
-
             } catch (AtmStateException e) {
                 System.out.print(errorWord);
             }
