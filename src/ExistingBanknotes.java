@@ -3,10 +3,10 @@
  */
 
 import java.util.Set;
-import java.util.HashSet;
+import java.util.TreeSet;
 
 class ExistingBanknotes {
-    private final Set<BankNote> exBank = new HashSet<>();
+    private final Set<BankNote> exBank = new TreeSet<>();
 
     ExistingBanknotes() {
         exBank.add(new BankNote(Currency.USD, 1));
