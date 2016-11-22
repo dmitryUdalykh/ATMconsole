@@ -40,7 +40,7 @@ class ExistingBanknotes {
         exBank.add(new BankNote(Currency.RUR, 5000));
     }
 
-    Set getExistingBanknotes() {
+    Set<BankNote> getExistingBanknotes() {
         return exBank;
     }
 }
