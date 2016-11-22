@@ -1,6 +1,6 @@
 import java.util.Collections;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Set;
 
 
 /**
@@ -22,32 +22,27 @@ class DepositCommand implements AtmCommand {
 
         String currencyForDeposit = arguments[0];
         Currency.checkCurrency(currencyForDeposit);
-        Currency theCurrency = Currency.valueOf(currencyForDeposit);
+        Currency currencyToPut = Currency.valueOf(currencyForDeposit);
 
-        int noteValue;
+        int valueToPut;
         try {
-            noteValue = Integer.parseInt(arguments[1]);
+            valueToPut = Integer.parseInt(arguments[1]);
         } catch (NumberFormatException e) {
             throw new AtmStateException("ILLEGAL TYPING OF VALUE");
         }
 
-        int addNum;
+        int numberToPut;
         try {
-            addNum = Integer.parseInt(arguments[2]);
+            numberToPut = Integer.parseInt(arguments[2]);
         } catch (NumberFormatException e) {
             throw new AtmStateException("ILLEGAL TYPING OF NUMBER");
         }
 
         ExistingBanknotes exBankOne = new ExistingBanknotes();
-        boolean existCheck = false;
-        for (BankNote noteCheck : exBankOne.getExistingBanknotes()) {
-            if (noteCheck.equals(new BankNote(theCurrency, noteValue))) {
-                moneyStorage.addNotes(theCurrency, noteValue, addNum);
-                existCheck = true;
-            }
-        }
-        if (existCheck) {
-            return Collections.singletonMap(new BankNote(theCurrency, noteValue), addNum);
+        Set<BankNote> bankSet = exBankOne.getExistingBanknotes();
+        if (bankSet.contains(new BankNote(currencyToPut, valueToPut))) {
+            moneyStorage.addNotes(currencyToPut, valueToPut, numberToPut);
+            return Collections.singletonMap(new BankNote(currencyToPut, valueToPut), numberToPut);
         } else {
             throw new AtmStateException("ILLEGAL VALUE OF A BANKNOTE");
         }
