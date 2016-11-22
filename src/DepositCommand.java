@@ -38,10 +38,15 @@ class DepositCommand implements AtmCommand {
             throw new AtmStateException("ILLEGAL TYPING OF NUMBER");
         }
 
-        double noteCheckOne = Math.log10(noteValue);
-        double noteCheckTwo = Math.log10(noteValue / 5.0);
-        if (noteCheckOne == (int) noteCheckOne || noteCheckTwo == (int) noteCheckTwo) {
-            moneyStorage.addNotes(theCurrency, noteValue, addNum);
+        ExistingBanknotes exBankOne = new ExistingBanknotes();
+        boolean existCheck = false;
+        for (BankNote noteCheck : exBankOne.getExistingBanknotes()) {
+            if (noteCheck.equals(new BankNote(theCurrency, noteValue))) {
+                moneyStorage.addNotes(theCurrency, noteValue, addNum);
+                existCheck = true;
+            }
+        }
+        if (existCheck) {
             return Collections.singletonMap(new BankNote(theCurrency, noteValue), addNum);
         } else {
             throw new AtmStateException("ILLEGAL VALUE OF A BANKNOTE");
