@@ -1,5 +1,7 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Set;
 
 /**
  * Created by Test on 10/30/2016.
@@ -15,6 +17,9 @@ class WithdrawalCommand implements AtmCommand {
     @Override
     public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
         Map<BankNote, Integer> outMap = new TreeMap<>();
+
+        Set<BankNote> exBankForWithdrawal = new ExistingBanknotes().getExistingBanknotes();
+
         if (arguments.length != 2) {
             throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
         }
@@ -22,6 +27,7 @@ class WithdrawalCommand implements AtmCommand {
         String currencyForWithdrawal = arguments[0];
         Currency.checkCurrency(currencyForWithdrawal);
         Currency currencyToPoll = Currency.valueOf(currencyForWithdrawal);
+        Map<BankNote, Integer> numbersMap = new HashMap<>();
 
         int amountToGet;
         try {
@@ -38,33 +44,31 @@ class WithdrawalCommand implements AtmCommand {
         //Checking whether it is possible to take a certain amount
         int currencyAmount = moneyStorage.getCurrencyAmount(currencyToPoll);
         if (currencyAmount >= amountToGet) {
-            int valuesArray[] = {5000, 1000, 500, 100, 50, 10, 5, 1};
             int checkAmount = amountToGet;
-            int[][] values2DArray = new int[4][2];
             int divisionCheck;
-            for (int valueToCheck : valuesArray) {
-                if (checkAmount >= valueToCheck) {
+            for (BankNote banknoteToCheck : exBankForWithdrawal) {
+                if (banknoteToCheck.getCurrency().equals(currencyToPoll) && checkAmount >= banknoteToCheck.getBanknoteValue()) {
+                    int valueToCheck = banknoteToCheck.getBanknoteValue();
                     if (moneyStorage.hasNote(currencyToPoll, valueToCheck)) {
-                        int remainingValue = moneyStorage.getNoteNumber(new BankNote(currencyToPoll, valueToCheck));
+                        int remainingNumber = moneyStorage.getNoteNumber(new BankNote(currencyToPoll, valueToCheck));
                         divisionCheck = checkAmount / valueToCheck;
-                        if (remainingValue > divisionCheck) {
+                        if (remainingNumber > divisionCheck) {
                             checkAmount = checkAmount - valueToCheck * divisionCheck;
+                            numbersMap.put(banknoteToCheck, divisionCheck);
                         } else {
-                            checkAmount = checkAmount - valueToCheck * remainingValue;
-                            divisionCheck = remainingValue;
+                            checkAmount = checkAmount - valueToCheck * remainingNumber;
+                            numbersMap.put(banknoteToCheck, remainingNumber);
                         }
-                        int[] valPlace = moneyStorage.valueToDimensions(valueToCheck);
-                        values2DArray[valPlace[0]][valPlace[1]] = divisionCheck;
                     }
                 }
             }
 
             //Withdrawal operation
             if (checkAmount == 0) {
-                for (int valueToPoll : valuesArray) {
-                    int[] valueToPollDimensions = moneyStorage.valueToDimensions(valueToPoll);
-                    int numberToPoll = values2DArray[valueToPollDimensions[0]][valueToPollDimensions[1]];
-                    if (numberToPoll != 0) {
+                for (BankNote banknoteToGet : exBankForWithdrawal) {
+                    int valueToPoll = banknoteToGet.getBanknoteValue();
+                    if (numbersMap.containsKey(banknoteToGet) && numbersMap.get(banknoteToGet) != 0) {
+                        int numberToPoll = numbersMap.get(banknoteToGet);
                         if (moneyStorage.hasNote(currencyToPoll, valueToPoll)) {
                             moneyStorage.pollNotes(currencyToPoll, valueToPoll, numberToPoll);
                             outMap.put(new BankNote(currencyToPoll, valueToPoll), numberToPoll);
