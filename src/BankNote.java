@@ -4,7 +4,7 @@
 
 import java.lang.Comparable;
 
-public class BankNote implements Comparable<BankNote> {
+class BankNote implements Comparable<BankNote> {
     private final Currency currency;
     private final int value;
 
