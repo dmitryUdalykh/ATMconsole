@@ -2,11 +2,10 @@
  * Created by Test on 11/18/2016.
  */
 
-import java.util.Set;
 import java.util.TreeSet;
 
 class ExistingBanknotes {
-    private final Set<BankNote> exBank = new TreeSet<>();
+    private final TreeSet<BankNote> exBank = new TreeSet<>();
 
     ExistingBanknotes() {
         exBank.add(new BankNote(Currency.USD, 1));
@@ -40,7 +39,7 @@ class ExistingBanknotes {
         exBank.add(new BankNote(Currency.RUR, 5000));
     }
 
-    Set<BankNote> getExistingBanknotes() {
+    TreeSet<BankNote> getExistingBanknotes() {
         return exBank;
     }
 }
