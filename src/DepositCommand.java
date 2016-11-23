@@ -44,7 +44,7 @@ class DepositCommand implements AtmCommand {
             moneyStorage.addNotes(currencyToPut, valueToPut, numberToPut);
             return Collections.singletonMap(new BankNote(currencyToPut, valueToPut), numberToPut);
         } else {
-            throw new AtmStateException("ILLEGAL VALUE OF A BANKNOTE");
+            throw new AtmStateException("NOT EXISTING BANKNOTE");
         }
     }
 }
