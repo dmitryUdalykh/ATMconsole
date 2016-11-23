@@ -2,11 +2,11 @@
  * Created by Test on 10/30/2016.
  */
 enum Currency {
-    USD,
-    RUR,
     CHF,
     EUR,
-    JPY;
+    JPY,
+    RUR,
+    USD;
 
     static boolean checkCurrency(String currencyForChecking) throws AtmStateException {
         for (Currency z : Currency.values()) {
