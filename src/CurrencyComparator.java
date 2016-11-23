@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-public class CurrencyComparator implements Comparator<BankNote> {
+class CurrencyComparator implements Comparator<BankNote> {
     public int compare(BankNote one, BankNote two) {
         return -one.getCurrency().compareTo(two.getCurrency());
     }
