@@ -109,12 +109,15 @@ public class AtmTest {
         CommandType remainCheck = CommandType.getCommandType("?");
         Assert.assertEquals(remainCheck, CommandType.REMAININGS);
 
+        CommandType elseCheck = CommandType.getCommandType("Abcde");
+        Assert.assertEquals(elseCheck, CommandType.UNDEFINED);
+
         CommandType nullCheck = CommandType.getCommandType(null);
         Assert.assertEquals(nullCheck, CommandType.UNDEFINED);
     }
 
     @Test
-    public void currencyTest() throws AtmStateException{
+    public void currencyTest() throws AtmStateException {
         Currency getUsd = Currency.getCurrency("USD");
         Assert.assertEquals(getUsd, Currency.USD);
 
@@ -129,5 +132,11 @@ public class AtmTest {
 
         Currency getChf = Currency.getCurrency("CHF");
         Assert.assertEquals(getChf, Currency.CHF);
+
+        try {
+            Currency.getCurrency("Abcde");
+        } catch (AtmStateException e) {
+        }
+
     }
 }
