@@ -4,6 +4,7 @@
 
 import java.util.*;
 
+ // TODO: please write a unit test for this class checking that valid commands are returned ok and invalid result in UNDEFINED
 enum CommandType {
     REMAININGS("?"),
     ADD("+"),

@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 class Atm {
+    // TODO: according to Java code conventions (http://www.oracle.com/technetwork/java/javase/documentation/codeconventions-135099.html)
+    // constants should look like QUIT_WORD etc
     private static final String quitWord = "QUIT";
     private static final String okWord = "OK";
     private static final String errorWord = "ERROR";
@@ -14,6 +16,7 @@ class Atm {
     private AtmCommandFactory atmCommandFactory;
 
     Atm() {
+        // TODO: why declaration and assignments are on 2 different lines?
         MoneyStorage moneyStorage;
         moneyStorage = new MoneyStorage();
         atmCommandFactory = new AtmCommandFactory(moneyStorage);
@@ -32,8 +35,11 @@ class Atm {
             // pass parameters from console to ATM
             try {
                 final String input = scanner.nextLine();
+                //TODO: why these two declarations are here and not there the variables are assigned?
                 String command;
                 String[] arguments;
+
+                //TODO: why this if is needed? Is it possible that "nextLine" returns null ?
                 if (input != null) {
                     String[] lineToRead = input.split("\\s");
                     command = lineToRead[0];
@@ -49,6 +55,7 @@ class Atm {
                     System.out.println(okWord);
                 }
             } catch (AtmStateException e) {
+                // TODO: should be "println"
                 System.out.print(errorWord);
             }
         }

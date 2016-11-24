@@ -1,6 +1,7 @@
 import java.util.Map;
 import java.util.Comparator;
 import java.util.TreeMap;
+import java.util.function.BiFunction;
 
 /**
  * Created by Test on 10/30/2016.
@@ -21,11 +22,16 @@ class MoneyStorage {
 
     void addNotes(Currency addCurrency, int addValue, Integer addNumber) {
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
+
+        //TODO: check if the following is going to work instead of "if" below
+        // notes.compute(keyToAdd, (bankNote, oldValue) -> oldValue == null ? addNumber : oldValue + addNumber);
         if (notes.containsKey(keyToAdd)) {
             notes.put(keyToAdd, notes.get(keyToAdd) + addNumber);
         } else {
             notes.put(keyToAdd, addNumber);
         }
+
+
         if (currencyAmount.containsKey(addCurrency)) {
             Integer amountOne = currencyAmount.get(addCurrency);
             currencyAmount.put(addCurrency, amountOne + addValue * addNumber);

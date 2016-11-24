@@ -25,10 +25,13 @@ class WithdrawalCommand implements AtmCommand {
         }
 
         String currencyForWithdrawal = arguments[0];
+
+        // TODO: instead of calling 2 lines do "Currency currencyToPut = Currency.getCurrency(currencyForDeposit)"
         Currency.checkCurrency(currencyForWithdrawal);
         Currency currencyToPoll = Currency.valueOf(currencyForWithdrawal);
         Map<BankNote, Integer> numbersMap = new HashMap<>();
 
+        //TODO: used AtmUtils (see comment in DepositCommand)
         int amountToGet;
         try {
             amountToGet = Integer.parseInt(arguments[1]);
@@ -45,6 +48,7 @@ class WithdrawalCommand implements AtmCommand {
         int currencyAmount = moneyStorage.getCurrencyAmount(currencyToPoll);
         if (currencyAmount >= amountToGet) {
             int checkAmount = amountToGet;
+            //TODO: should be declared where it's assigned first time
             int divisionCheck;
             for (BankNote banknoteToCheck : exBankForWithdrawal) {
                 if (banknoteToCheck.getCurrency().equals(currencyToPoll) && checkAmount >= banknoteToCheck.getBanknoteValue()) {
@@ -82,6 +86,8 @@ class WithdrawalCommand implements AtmCommand {
         } else {
             throw new AtmStateException("NOT POSSIBLE WITH THE AVAILABLE BANKNOTES");
         }
+
+        //TODO: add only one throw new AtmStateException here isnetad of the two above
     }
 }
 

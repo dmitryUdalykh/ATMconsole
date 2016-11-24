@@ -33,6 +33,8 @@ class BankNote implements Comparable<BankNote> {
         return currency;
     }
 
+    // TODO: getters are constructed like "get<VAR_NAME>". For example, if a variable has name "foo" the getter would be "getFoo"; the same with
+    // setter - "setFoo". The getter method name should be changed
     int getBanknoteValue() {
         return value;
     }
