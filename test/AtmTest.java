@@ -95,7 +95,6 @@ public class AtmTest {
         ztest.put(new BankNote(Currency.USD, 10), 48);
         ztest.put(new BankNote(Currency.USD, 100), 29);
         Assert.assertEquals(ztest, result);
-
     }
 
     @Test
