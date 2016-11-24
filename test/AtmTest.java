@@ -100,7 +100,34 @@ public class AtmTest {
 
     @Test
     public void testAtmCommand() {
-        CommandType commandCheck = CommandType.getCommandType(null);
-        Assert.assertEquals(commandCheck, CommandType.UNDEFINED);
+        CommandType addCheck = CommandType.getCommandType("+");
+        Assert.assertEquals(addCheck, CommandType.ADD);
+
+        CommandType withdrawalCheck = CommandType.getCommandType("-");
+        Assert.assertEquals(withdrawalCheck, CommandType.WITHDRAW);
+
+        CommandType remainCheck = CommandType.getCommandType("?");
+        Assert.assertEquals(remainCheck, CommandType.REMAININGS);
+
+        CommandType nullCheck = CommandType.getCommandType(null);
+        Assert.assertEquals(nullCheck, CommandType.UNDEFINED);
+    }
+
+    @Test
+    public void currencyTest() throws AtmStateException{
+        Currency getUsd = Currency.getCurrency("USD");
+        Assert.assertEquals(getUsd, Currency.USD);
+
+        Currency getEur = Currency.getCurrency("EUR");
+        Assert.assertEquals(getEur, Currency.EUR);
+
+        Currency getJpy = Currency.getCurrency("JPY");
+        Assert.assertEquals(getJpy, Currency.JPY);
+
+        Currency getRur = Currency.getCurrency("RUR");
+        Assert.assertEquals(getRur, Currency.RUR);
+
+        Currency getChf = Currency.getCurrency("CHF");
+        Assert.assertEquals(getChf, Currency.CHF);
     }
 }
