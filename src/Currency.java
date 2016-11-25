@@ -12,17 +12,6 @@ enum Currency {
     USD;
 
     static Currency getCurrency(String currencyForChecking) throws AtmStateException {
-        //TODO: clean up commented out code
-        /*
-        for (Currency z : Currency.values()) {
-            if (z.toString().equals(currencyForChecking)) {
-                return z;
-            }
-        }
-        throw new AtmStateException("ILLEGAL CURRENCY TYPE");
-*/
-        //JDK 8 alternative:
-
         return Arrays.stream(Currency.values())
                 .filter(currency -> currency.toString().equals(currencyForChecking))
                 .findFirst()
