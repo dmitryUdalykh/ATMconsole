@@ -15,14 +15,10 @@ class DepositCommand implements AtmCommand {
 
     @Override
     public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
-        AtmUtils.lengthCheck(3, new AtmStateException("WRONG NUMBER OF PARAMETERS"), arguments);
-
+        AtmUtils.assertLengthCheck(3, arguments);
         Currency currencyToPut = Currency.getCurrency(arguments[0]);
-
-        //TODO: there is a duplication of code below: "new AtmStateException" is duplicated twice. throwing AtmStateException should be inside
-        // AtmUtils.parseInt method - we should pass only a string message there
-        int valueToPut = AtmUtils.parseInt(arguments[1], new AtmStateException("ILLEGAL TYPING OF VALUE"));
-        int numberToPut = AtmUtils.parseInt(arguments[2], new AtmStateException("ILLEGAL TYPING OF NUMBER"));
+        int valueToPut = AtmUtils.parseInt(arguments[1], "ILLEGAL TYPING OF VALUE");
+        int numberToPut = AtmUtils.parseInt(arguments[2], "ILLEGAL TYPING OF NUMBER");
 
         ExistingBanknotes.assertBanknote(currencyToPut, valueToPut);
         moneyStorage.addNotes(currencyToPut, valueToPut, numberToPut);
