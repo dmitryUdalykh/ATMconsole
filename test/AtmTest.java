@@ -97,6 +97,7 @@ public class AtmTest {
         Assert.assertEquals(ztest, result);
     }
 
+    //TODO: this test should be in a separate class CommandTypeTest
     @Test
     public void testAtmCommand() {
         CommandType addCheck = CommandType.getCommandType("+");
@@ -115,6 +116,7 @@ public class AtmTest {
         Assert.assertEquals(nullCheck, CommandType.UNDEFINED);
     }
 
+    //TODO: this test should be in a separate class CurrencyTest
     @Test
     public void currencyTest() throws AtmStateException {
         Currency getUsd = Currency.getCurrency("USD");
@@ -132,6 +134,8 @@ public class AtmTest {
         Currency getChf = Currency.getCurrency("CHF");
         Assert.assertEquals(getChf, Currency.CHF);
 
+        //TODO: this should be a separate method with annotation
+        // @Test(expected = AtmStateException.class)
         try {
             Currency.getCurrency("Abcde");
         } catch (AtmStateException e) {
