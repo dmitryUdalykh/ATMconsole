@@ -17,23 +17,13 @@ class WithdrawalCommand implements AtmCommand {
     @Override
     public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
         Map<BankNote, Integer> outMap = new TreeMap<>();
-
         Set<BankNote> exBankForWithdrawal = ExistingBanknotes.getExistingBanknotes();
-
-        if (arguments.length != 2) {
-            throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
-        }
-
-        String currencyForWithdrawal = arguments[0];
-        Currency currencyToPoll = Currency.getCurrency(currencyForWithdrawal);
         Map<BankNote, Integer> numbersMap = new HashMap<>();
 
-        int amountToGet = AtmUtils.parseInt(arguments[1], new AtmStateException("ILLEGAL TYPING OF AMOUNT"));
+        AtmUtils.lengthCheck(2, new AtmStateException("WRONG NUMBER OF PARAMETERS"), arguments);
 
-        //Checking whether the money storage contains this currency
-        if (!moneyStorage.hasCurrency(currencyToPoll)) {
-            throw new AtmStateException("NO SUCH CURRENCY");
-        }
+        Currency currencyToPoll = Currency.getCurrency(arguments[0]);
+        int amountToGet = AtmUtils.parseInt(arguments[1], new AtmStateException("ILLEGAL TYPING OF AMOUNT"));
 
         //Checking whether it is possible to take a certain amount
         int currencyAmount = moneyStorage.getCurrencyAmount(currencyToPoll);
