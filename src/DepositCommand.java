@@ -15,9 +15,7 @@ class DepositCommand implements AtmCommand {
 
     @Override
     public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
-        if (arguments.length != 3) {
-            throw new AtmStateException("WRONG NUMBER OF PARAMETERS");
-        }
+        AtmUtils.lengthCheck(3, new AtmStateException("WRONG NUMBER OF PARAMETERS"), arguments);
 
         String currencyForDeposit = arguments[0];
         Currency currencyToPut = Currency.getCurrency(currencyForDeposit);
