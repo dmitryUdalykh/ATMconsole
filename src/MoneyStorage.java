@@ -30,7 +30,7 @@ class MoneyStorage {
         } else {
             notes.put(keyToAdd, addNumber);
         }
-*/
+        */
         if (currencyAmount.containsKey(addCurrency)) {
             Integer amountOne = currencyAmount.get(addCurrency);
             currencyAmount.put(addCurrency, amountOne + addValue * addNumber);
