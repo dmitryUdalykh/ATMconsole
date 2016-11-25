@@ -2,7 +2,7 @@
  * Created by Test on 11/04/2016.
  */
 
-import java.util.*;
+import java.util.Comparator;
 
 class ValueComparator implements Comparator<BankNote> {
 
