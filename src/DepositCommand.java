@@ -1,10 +1,9 @@
-import java.util.Collections;
-import java.util.Map;
-
-
 /**
  * Created by Test on 10/30/2016.
  */
+import java.util.Map;
+import java.util.Collections;
+
 class DepositCommand implements AtmCommand {
 
     private final MoneyStorage moneyStorage;
