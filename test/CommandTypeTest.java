@@ -23,4 +23,9 @@ public class CommandTypeTest {
     public void testCommandException() throws AtmStateException {
         CommandType.getCommandType("Abcde");
     }
+
+    @Test(expected = AtmStateException.class)
+    public void testCommandNull() throws AtmStateException {
+        CommandType.getCommandType(null);
+    }
 }
