@@ -12,6 +12,7 @@ enum Currency {
     USD;
 
     static Currency getCurrency(String currencyForChecking) throws AtmStateException {
+        //TODO: clean up commented out code
         /*
         for (Currency z : Currency.values()) {
             if (z.toString().equals(currencyForChecking)) {

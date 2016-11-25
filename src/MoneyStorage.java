@@ -20,6 +20,10 @@ class MoneyStorage {
         return currencyAmount.containsKey(hasCurrency2);
     }
 
+    //TODO:
+    // 1. create a test class MoneyStorageTest
+    // 2. add a few tests for this method "addNotes"
+    // 3. try to replace the current code putting into "notes" map with the code I provided
     void addNotes(Currency addCurrency, int addValue, Integer addNumber) {
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
 

@@ -18,11 +18,15 @@ class DepositCommand implements AtmCommand {
         AtmUtils.lengthCheck(3, new AtmStateException("WRONG NUMBER OF PARAMETERS"), arguments);
 
         Currency currencyToPut = Currency.getCurrency(arguments[0]);
+
+        //TODO: there is a duplication of code below: "new AtmStateException" is duplicated twice. throwing AtmStateException should be inside
+        // AtmUtils.parseInt method - we should pass only a string message there
         int valueToPut = AtmUtils.parseInt(arguments[1], new AtmStateException("ILLEGAL TYPING OF VALUE"));
         int numberToPut = AtmUtils.parseInt(arguments[2], new AtmStateException("ILLEGAL TYPING OF NUMBER"));
 
         ExistingBanknotes.assertBanknote(currencyToPut, valueToPut);
         moneyStorage.addNotes(currencyToPut, valueToPut, numberToPut);
+
         return Collections.singletonMap(new BankNote(currencyToPut, valueToPut), numberToPut);
     }
 }
