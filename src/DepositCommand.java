@@ -17,9 +17,7 @@ class DepositCommand implements AtmCommand {
     public Map<BankNote, Integer> execute(String... arguments) throws AtmStateException {
         AtmUtils.lengthCheck(3, new AtmStateException("WRONG NUMBER OF PARAMETERS"), arguments);
 
-        String currencyForDeposit = arguments[0];
-        Currency currencyToPut = Currency.getCurrency(currencyForDeposit);
-
+        Currency currencyToPut = Currency.getCurrency(arguments[0]);
         int valueToPut = AtmUtils.parseInt(arguments[1], new AtmStateException("ILLEGAL TYPING OF VALUE"));
         int numberToPut = AtmUtils.parseInt(arguments[2], new AtmStateException("ILLEGAL TYPING OF NUMBER"));
 
