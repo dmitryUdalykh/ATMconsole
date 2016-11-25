@@ -43,7 +43,6 @@ class Atm {
                         System.out.println(entry + " " + entry.getValue())
                 );
                 System.out.println(OK_WORD);
-
             } catch (AtmStateException e) {
                 System.out.println(ERROR_WORD);
             }
