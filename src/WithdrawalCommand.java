@@ -20,12 +20,9 @@ class WithdrawalCommand implements AtmCommand {
         Map<BankNote, Integer> numbersMap = new HashMap<>();
         Set<BankNote> exBankForWithdrawal = ExistingBanknotes.getExistingBanknotes();
 
-        //TODO: not properly formatted
-        AtmUtils.lengthCheck(2,new AtmStateException("WRONG NUMBER OF PARAMETERS"),arguments);
-
+        AtmUtils.assertLengthCheck(2, arguments);
         Currency currencyToPoll = Currency.getCurrency(arguments[0]);
-        //TODO: we should pass not an exception but a string as the second parameter to AtmUtils.parseInt
-        int amountToGet = AtmUtils.parseInt(arguments[1], new AtmStateException("ILLEGAL TYPING OF AMOUNT"));
+        int amountToGet = AtmUtils.parseInt(arguments[1], "ILLEGAL TYPING OF AMOUNT");
 
         //Checking whether the money storage contains this currency
         if (!moneyStorage.hasCurrency(currencyToPoll)) {
