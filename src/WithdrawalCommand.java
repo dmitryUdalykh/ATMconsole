@@ -1,11 +1,12 @@
+/**
+ * Created by Test on 10/30/2016.
+ */
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Set;
 
-/**
- * Created by Test on 10/30/2016.
- */
 class WithdrawalCommand implements AtmCommand {
 
     private final MoneyStorage moneyStorage;
