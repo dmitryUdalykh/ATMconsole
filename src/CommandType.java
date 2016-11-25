@@ -2,7 +2,7 @@
  * Created by Test on 11/16/2016.
  */
 
-import java.util.*;
+import java.util.Arrays;
 
 enum CommandType {
     REMAININGS("?"),
