@@ -26,7 +26,7 @@ public class CurrencyTest {
     }
 
     @Test(expected = AtmStateException.class)
-    public void testCurrncyException() throws AtmStateException {
+    public void testCurrencyException() throws AtmStateException {
         Currency.getCurrency("Abcde");
     }
 }
