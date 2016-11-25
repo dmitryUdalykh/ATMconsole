@@ -23,15 +23,14 @@ class MoneyStorage {
     void addNotes(Currency addCurrency, int addValue, Integer addNumber) {
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
 
-        //TODO: check if the following is going to work instead of "if" below
-        // notes.compute(keyToAdd, (bankNote, oldValue) -> oldValue == null ? addNumber : oldValue + addNumber);
+        notes.compute(keyToAdd, (bankNote, oldValue) -> oldValue == null ? addNumber : oldValue + addNumber);
+        /*
         if (notes.containsKey(keyToAdd)) {
             notes.put(keyToAdd, notes.get(keyToAdd) + addNumber);
         } else {
             notes.put(keyToAdd, addNumber);
         }
-
-
+*/
         if (currencyAmount.containsKey(addCurrency)) {
             Integer amountOne = currencyAmount.get(addCurrency);
             currencyAmount.put(addCurrency, amountOne + addValue * addNumber);
@@ -39,7 +38,6 @@ class MoneyStorage {
             currencyAmount.put(addCurrency, addNumber * addValue);
         }
     }
-
     void pollNotes(Currency pollCurrency, int pollValue, int pollAmount) {
         BankNote keyToPoll = new BankNote(pollCurrency, pollValue);
         notes.put(keyToPoll, notes.get(keyToPoll) - pollAmount);
@@ -49,6 +47,7 @@ class MoneyStorage {
         currencyAmount.put(pollCurrency, currencyAmount.get(pollCurrency) - pollAmount);
         if (currencyAmount.get(pollCurrency) == 0) {
             currencyAmount.remove(pollCurrency);
+
         }
     }
 
