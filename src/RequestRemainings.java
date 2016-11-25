@@ -1,8 +1,9 @@
-import java.util.Map;
-
 /**
  * Created by Test on 10/30/2016.
  */
+
+import java.util.Map;
+
 class RequestRemainings implements AtmCommand {
     private MoneyStorage moneyStorage;
 
