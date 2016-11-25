@@ -20,21 +20,9 @@ class MoneyStorage {
         return currencyAmount.containsKey(hasCurrency2);
     }
 
-    //TODO:
-    // 1. create a test class MoneyStorageTest
-    // 2. add a few tests for this method "addNotes"
-    // 3. try to replace the current code putting into "notes" map with the code I provided
     void addNotes(Currency addCurrency, int addValue, Integer addNumber) {
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
-
         notes.compute(keyToAdd, (bankNote, oldValue) -> oldValue == null ? addNumber : oldValue + addNumber);
-        /*
-        if (notes.containsKey(keyToAdd)) {
-            notes.put(keyToAdd, notes.get(keyToAdd) + addNumber);
-        } else {
-            notes.put(keyToAdd, addNumber);
-        }
-        */
         if (currencyAmount.containsKey(addCurrency)) {
             Integer amountOne = currencyAmount.get(addCurrency);
             currencyAmount.put(addCurrency, amountOne + addValue * addNumber);
@@ -42,26 +30,27 @@ class MoneyStorage {
             currencyAmount.put(addCurrency, addNumber * addValue);
         }
     }
-    void pollNotes(Currency pollCurrency, int pollValue, int pollAmount) {
+
+    void pollNotes(Currency pollCurrency, int pollValue, int pollNumber) {
         BankNote keyToPoll = new BankNote(pollCurrency, pollValue);
-        notes.put(keyToPoll, notes.get(keyToPoll) - pollAmount);
+        notes.put(keyToPoll, notes.get(keyToPoll) - pollNumber);
         if (notes.get(keyToPoll) == 0) {
             notes.remove(keyToPoll);
         }
-        currencyAmount.put(pollCurrency, currencyAmount.get(pollCurrency) - pollAmount);
+        currencyAmount.put(pollCurrency, currencyAmount.get(pollCurrency) - pollNumber);
         if (currencyAmount.get(pollCurrency) == 0) {
             currencyAmount.remove(pollCurrency);
 
         }
     }
 
-    int getNoteNumber(BankNote keyFour) {
-        Object numberToGet = notes.get(keyFour);
+    int getNoteNumber(BankNote banknoteKey) {
+        Object numberToGet = notes.get(banknoteKey);
         return (Integer) numberToGet;
     }
 
-    Integer getCurrencyAmount(Currency noteKey) {
-        Object amountToGet = currencyAmount.get(noteKey);
+    Integer getCurrencyAmount(Currency currencyKey) {
+        Object amountToGet = currencyAmount.get(currencyKey);
         return (Integer) amountToGet;
     }
 
