@@ -20,7 +20,8 @@ class MoneyStorage {
         return currencyAmount.containsKey(hasCurrency2);
     }
 
-    void addNotes(Currency addCurrency, int addValue, Integer addNumber) {
+    void addNotes(Currency addCurrency, int addValue, Integer addNumber) throws AtmStateException{
+        ExistingBanknotes.assertBanknote(addCurrency, addValue);
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
         notes.compute(keyToAdd, (bankNote, oldValue) -> oldValue == null ? addNumber : oldValue + addNumber);
         if (currencyAmount.containsKey(addCurrency)) {
