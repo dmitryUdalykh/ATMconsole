@@ -20,9 +20,7 @@ class DepositCommand implements AtmCommand {
         int valueToPut = AtmUtils.parseInt(arguments[1], "ILLEGAL TYPING OF VALUE");
         int numberToPut = AtmUtils.parseInt(arguments[2], "ILLEGAL TYPING OF NUMBER");
 
-        ExistingBanknotes.assertBanknote(currencyToPut, valueToPut);
         moneyStorage.addNotes(currencyToPut, valueToPut, numberToPut);
-
         return Collections.singletonMap(new BankNote(currencyToPut, valueToPut), numberToPut);
     }
 }
