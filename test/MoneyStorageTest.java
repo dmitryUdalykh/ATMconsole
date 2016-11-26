@@ -29,6 +29,11 @@ public class MoneyStorageTest {
 
     @Test(expected = AtmStateException.class)
     public void moneyStorageTest2() throws AtmStateException {
-        moneyStorage.addNotes(Currency.USD, 120, 1);
+        moneyStorage.addNotes(Currency.RUR, 120, 1);
+    }
+
+    @Test(expected = AtmStateException.class)
+    public void moneyStorageTest3() throws AtmStateException {
+        moneyStorage.addNotes(Currency.USD, 0, 1);
     }
 }
