@@ -41,7 +41,6 @@ class MoneyStorage {
         currencyAmount.put(pollCurrency, currencyAmount.get(pollCurrency) - pollNumber);
         if (currencyAmount.get(pollCurrency) == 0) {
             currencyAmount.remove(pollCurrency);
-
         }
     }
 
