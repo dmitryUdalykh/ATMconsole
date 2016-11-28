@@ -24,6 +24,8 @@ class MoneyStorage {
         ExistingBanknotes.assertBanknote(addCurrency, addValue);
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
         notes.compute(keyToAdd, (bankNote, oldValue) -> oldValue == null ? addNumber : oldValue + addNumber);
+
+        // TODO: check if we can use Map.compute here
         if (currencyAmount.containsKey(addCurrency)) {
             Integer amountOne = currencyAmount.get(addCurrency);
             currencyAmount.put(addCurrency, amountOne + addValue * addNumber);
@@ -34,10 +36,14 @@ class MoneyStorage {
 
     void pollNotes(Currency pollCurrency, int pollValue, int pollNumber) {
         BankNote keyToPoll = new BankNote(pollCurrency, pollValue);
+
+        // TODO: check if we can use Map.compute here
         notes.put(keyToPoll, notes.get(keyToPoll) - pollNumber);
         if (notes.get(keyToPoll) == 0) {
             notes.remove(keyToPoll);
         }
+
+        // TODO: check if we can use Map.compute here
         currencyAmount.put(pollCurrency, currencyAmount.get(pollCurrency) - pollNumber);
         if (currencyAmount.get(pollCurrency) == 0) {
             currencyAmount.remove(pollCurrency);
@@ -45,11 +51,16 @@ class MoneyStorage {
     }
 
     int getNoteNumber(BankNote banknoteKey) {
+        // TODO: assign to Integer - not an object
+        // TODO: add a check for null
         Object numberToGet = notes.get(banknoteKey);
         return (Integer) numberToGet;
     }
 
+    //TODO: return "int"
     Integer getCurrencyAmount(Currency currencyKey) {
+        // TODO: assign to Integer - not an object
+        // TODO: add a check for null
         Object amountToGet = currencyAmount.get(currencyKey);
         return (Integer) amountToGet;
     }

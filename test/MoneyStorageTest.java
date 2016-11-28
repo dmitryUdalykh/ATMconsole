@@ -12,6 +12,7 @@ import java.util.TreeMap;
 public class MoneyStorageTest {
 
     private MoneyStorage moneyStorage;
+    //TODO: doesn't have to be a class attribute - can be a local method variable
     private Map<BankNote, Integer> storageCheck = new TreeMap<>();
 
     @Before
