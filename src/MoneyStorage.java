@@ -36,8 +36,7 @@ class MoneyStorage {
 
     int getNoteNumber(BankNote banknoteKey) throws AtmStateException {
         if (banknoteKey != null) {
-            Object numberToGet = notes.get(banknoteKey);
-            return (Integer) numberToGet;
+            return notes.get(banknoteKey);
         } else {
             throw new AtmStateException("NULL INSTEAD OF A BANKNOTE");
         }
@@ -45,8 +44,7 @@ class MoneyStorage {
 
     int getCurrencyAmount(Currency currencyKey) throws AtmStateException {
         if (currencyKey != null) {
-            Object amountToGet = currencyAmount.get(currencyKey);
-            return (int) amountToGet;
+            return currencyAmount.get(currencyKey);
         } else {
             throw new AtmStateException("ILLEGAL CURRENCY TYPING");
         }
