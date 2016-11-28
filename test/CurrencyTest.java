@@ -29,4 +29,9 @@ public class CurrencyTest {
     public void testCurrencyException() throws AtmStateException {
         Currency.getCurrency("Abcde");
     }
+
+    @Test(expected = AtmStateException.class)
+    public void testCurrencyNull() throws AtmStateException {
+        Currency.getCurrency(null);
+    }
 }
