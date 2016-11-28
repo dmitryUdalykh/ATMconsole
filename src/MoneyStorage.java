@@ -20,49 +20,36 @@ class MoneyStorage {
         return currencyAmount.containsKey(hasCurrency2);
     }
 
-    void addNotes(Currency addCurrency, int addValue, Integer addNumber) throws AtmStateException{
+    void addNotes(Currency addCurrency, int addValue, Integer addNumber) throws AtmStateException {
         ExistingBanknotes.assertBanknote(addCurrency, addValue);
         BankNote keyToAdd = new BankNote(addCurrency, addValue);
-        notes.compute(keyToAdd, (bankNote, oldValue) -> oldValue == null ? addNumber : oldValue + addNumber);
-
-        // TODO: check if we can use Map.compute here
-        if (currencyAmount.containsKey(addCurrency)) {
-            Integer amountOne = currencyAmount.get(addCurrency);
-            currencyAmount.put(addCurrency, amountOne + addValue * addNumber);
-        } else {
-            currencyAmount.put(addCurrency, addNumber * addValue);
-        }
+        notes.compute(keyToAdd, (bankNote, oldNumber) -> oldNumber == null ? addNumber : oldNumber + addNumber);
+        currencyAmount.compute(addCurrency, (banknoteKey, integerNumber) -> integerNumber == null ? addValue * addNumber : integerNumber + addNumber * addValue);
     }
 
     void pollNotes(Currency pollCurrency, int pollValue, int pollNumber) {
         BankNote keyToPoll = new BankNote(pollCurrency, pollValue);
+        notes.compute(keyToPoll, (bankNote, oldNumber) -> oldNumber == null ? 0 : oldNumber - pollNumber);
+        currencyAmount.compute(pollCurrency, (currencyKey, oldAmount) -> oldAmount == null ? 0 : oldAmount - pollNumber);
 
-        // TODO: check if we can use Map.compute here
-        notes.put(keyToPoll, notes.get(keyToPoll) - pollNumber);
-        if (notes.get(keyToPoll) == 0) {
-            notes.remove(keyToPoll);
-        }
+    }
 
-        // TODO: check if we can use Map.compute here
-        currencyAmount.put(pollCurrency, currencyAmount.get(pollCurrency) - pollNumber);
-        if (currencyAmount.get(pollCurrency) == 0) {
-            currencyAmount.remove(pollCurrency);
+    int getNoteNumber(BankNote banknoteKey) throws AtmStateException {
+        if (banknoteKey != null) {
+            Object numberToGet = notes.get(banknoteKey);
+            return (Integer) numberToGet;
+        } else {
+            throw new AtmStateException("NULL INSTEAD OF A BANKNOTE");
         }
     }
 
-    int getNoteNumber(BankNote banknoteKey) {
-        // TODO: assign to Integer - not an object
-        // TODO: add a check for null
-        Object numberToGet = notes.get(banknoteKey);
-        return (Integer) numberToGet;
-    }
-
-    //TODO: return "int"
-    Integer getCurrencyAmount(Currency currencyKey) {
-        // TODO: assign to Integer - not an object
-        // TODO: add a check for null
-        Object amountToGet = currencyAmount.get(currencyKey);
-        return (Integer) amountToGet;
+    int getCurrencyAmount(Currency currencyKey) throws AtmStateException {
+        if (currencyKey != null) {
+            Object amountToGet = currencyAmount.get(currencyKey);
+            return (int) amountToGet;
+        } else {
+            throw new AtmStateException("ILLEGAL CURRENCY TYPING");
+        }
     }
 
     Map<BankNote, Integer> getBanknotes() {
