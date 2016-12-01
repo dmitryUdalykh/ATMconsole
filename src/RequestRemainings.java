@@ -5,7 +5,7 @@
 import java.util.Map;
 
 class RequestRemainings implements AtmCommand {
-    private MoneyStorage moneyStorage;
+    private final MoneyStorage moneyStorage;
 
     RequestRemainings(MoneyStorage moneyStorage) {
         this.moneyStorage = moneyStorage;
