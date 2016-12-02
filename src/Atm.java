@@ -39,7 +39,7 @@ class Atm {
 
                 Map<BankNote, Integer> response = atm.runCommand(command, arguments);
                 response.entrySet().forEach(entry ->
-                        System.out.println(entry + " " + entry.getValue())
+                        System.out.println(entry.getKey() + " " + entry.getValue())
                 );
                 System.out.println(OK_WORD);
             } catch (AtmStateException e) {
