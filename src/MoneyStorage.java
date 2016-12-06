@@ -31,7 +31,6 @@ class MoneyStorage {
         BankNote keyToPoll = new BankNote(pollCurrency, pollValue);
         notes.compute(keyToPoll, (bankNote, oldNumber) -> oldNumber == null ? 0 : oldNumber - pollNumber);
         currencyAmount.compute(pollCurrency, (currencyKey, oldAmount) -> oldAmount == null ? 0 : oldAmount - pollNumber);
-
     }
 
     int getNoteNumber(BankNote banknoteKey) throws AtmStateException {
