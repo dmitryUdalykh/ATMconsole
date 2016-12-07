@@ -21,10 +21,14 @@ class MoneyStorage {
     }
 
     void addNotes(Currency addCurrency, int addValue, Integer addNumber) throws AtmStateException {
-        ExistingBanknotes.assertBanknote(addCurrency, addValue);
-        BankNote keyToAdd = new BankNote(addCurrency, addValue);
-        notes.compute(keyToAdd, (bankNote, oldNumber) -> oldNumber == null ? addNumber : oldNumber + addNumber);
-        currencyAmount.compute(addCurrency, (banknoteKey, integerNumber) -> integerNumber == null ? addValue * addNumber : integerNumber + addNumber * addValue);
+        try {
+            ExistingBanknotes.assertBanknote(addCurrency, addValue);
+            BankNote keyToAdd = new BankNote(addCurrency, addValue);
+            notes.compute(keyToAdd, (bankNote, oldNumber) -> oldNumber == null ? addNumber : oldNumber + addNumber);
+            currencyAmount.compute(addCurrency, (banknoteKey, integerNumber) -> integerNumber == null ? addValue * addNumber : integerNumber + addNumber * addValue);
+        } catch (NullPointerException e) {
+            throw new AtmStateException("NULL OBJECT DETECTED");
+        }
     }
 
     void pollNotes(Currency pollCurrency, int pollValue, int pollNumber) {
@@ -34,10 +38,11 @@ class MoneyStorage {
     }
 
     int getNoteNumber(BankNote banknoteKey) throws AtmStateException {
-        if (banknoteKey != null) {
-            return notes.get(banknoteKey);
-        } else {
-            throw new AtmStateException("NULL INSTEAD OF A BANKNOTE");
+        try {
+            Object numberToGet = notes.get(banknoteKey);
+            return (Integer) numberToGet;
+        } catch (NullPointerException e) {
+            throw new AtmStateException("NULL BANKNOTE NUMBER");
         }
     }
 
