@@ -95,5 +95,21 @@ public class AtmTest {
         atmTest.put(new BankNote(Currency.USD, 10), 48);
         atmTest.put(new BankNote(Currency.USD, 100), 29);
         Assert.assertEquals(atmTest, result);
+
+        result = atm.runCommand("+", "RUR", "100", "1");
+        atmTest.clear();
+        atmTest.put(new BankNote(Currency.RUR, 100), 1);
+        Assert.assertEquals(atmTest, result);
+
+        result = atm.runCommand("+", "RUR", "10", "20");
+        atmTest.clear();
+        atmTest.put(new BankNote(Currency.RUR, 10), 20);
+        Assert.assertEquals(atmTest, result);
+
+        result = atm.runCommand("-", "RUR", "200");
+        atmTest.clear();
+        atmTest.put(new BankNote(Currency.RUR, 100), 1);
+        atmTest.put(new BankNote(Currency.RUR, 10), 10);
+        Assert.assertEquals(atmTest, result);
     }
 }
