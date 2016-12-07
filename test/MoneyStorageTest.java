@@ -41,4 +41,9 @@ public class MoneyStorageTest {
     public void currencyAmountException() throws AtmStateException {
         moneyStorage.getCurrencyAmount(Currency.JPY);
     }
+
+    @Test(expected = AtmStateException.class)
+    public void moneyStorageNull() throws AtmStateException {
+        moneyStorage.addNotes(null, 0, null);
+    }
 }
