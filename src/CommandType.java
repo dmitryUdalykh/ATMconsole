@@ -20,6 +20,5 @@ enum CommandType {
                 .filter(commandType -> commandType.command.equals(command))
                 .findFirst()
                 .orElseThrow(() -> new AtmStateException("UNIDENTIFIED COMMAND"));
-
     }
 }
