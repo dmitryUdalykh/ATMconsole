@@ -33,8 +33,12 @@ public class MoneyStorageTest {
     }
 
     @Test(expected = AtmStateException.class)
-    public void moneyStorageException() throws AtmStateException {
-        moneyStorage.addNotes(Currency.USD, 10, null);
+    public void notesException() throws AtmStateException {
         moneyStorage.getNoteNumber(new BankNote(Currency.USD, 10));
+    }
+
+    @Test(expected = AtmStateException.class)
+    public void currencyAmountException() throws AtmStateException {
+        moneyStorage.getCurrencyAmount(Currency.JPY);
     }
 }
