@@ -45,4 +45,9 @@ class BankNote implements Comparable<BankNote> {
             return currency.compareTo(testBankNote.getCurrency());
         }
     }
+
+    @Override
+    public String toString() {
+        return currency + " " + value;
+    }
 }
