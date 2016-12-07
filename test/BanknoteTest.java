@@ -12,4 +12,11 @@ public class BanknoteTest {
         String expected = "USD 100";
         Assert.assertEquals(testBanknote.toString(), expected);
     }
+
+    @Test
+    public void banknoteEquality() throws AtmStateException {
+        BankNote firstBanknote = new BankNote(Currency.RUR, 100);
+        BankNote secondBanknote = new BankNote(Currency.RUR, 50 + 50);
+        Assert.assertEquals(firstBanknote, secondBanknote);
+    }
 }
