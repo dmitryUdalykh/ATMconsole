@@ -47,10 +47,11 @@ class MoneyStorage {
     }
 
     int getCurrencyAmount(Currency currencyKey) throws AtmStateException {
-        if (currencyKey != null) {
-            return currencyAmount.get(currencyKey);
-        } else {
-            throw new AtmStateException("ILLEGAL CURRENCY TYPING");
+        try {
+            Object amountToGet = currencyAmount.get(currencyKey);
+            return (Integer) amountToGet;
+        } catch (NullPointerException e) {
+            throw new AtmStateException("NULL CURRENCY AMOUNT");
         }
     }
 
